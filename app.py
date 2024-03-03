@@ -1,9 +1,13 @@
 import pandas as pd
 import streamlit as st
-import numpy as np
-from PIL import Image
-import matplotlib.pyplot as plt
-import plotly.express as px
+# import numpy as np
+# from PIL import Image
+# import matplotlib.pyplot as plt
+# import plotly.express as px
+
+st.set_page_config(
+    page_title="DMN Data Central"
+)
 
 df = pd.read_csv("./data.csv")
 
@@ -17,4 +21,4 @@ score = df.sum(1, True, True)[0]
 
 st.metric("DMN final score", score)
 
-st.metric("DMN Day 1", df.)
+# st.metric("DMN Day 1", df.)
