@@ -13,21 +13,31 @@ df = pd.read_csv("./data.csv")
 
 st.title(":red[__SvS__] Data 500 :sunglasses:", anchor="head", help="State 500 vs 497")
 
-# print(df)
+print(df)
 
-st.session_state.state = "500"
-st.session_state.alliance = "DMN"
-st.session_state.disabled = False
+if "state" not in st.session_state:
+    st.session_state.state = 500
+    st.session_state.disabled = False
 
 col1, col2 = st.columns(2)
+alliance_list = df["Alliance"]
 
 with col1:
-    st.checkbox("Enable comparator mode", key="disabled")
-    st.radio("Select State", key="state", options=["500", "497", "Both"])
+    st.checkbox("Compartor mode", key="disabled")
+    st.radio(
+        "Select State 👉",
+        key="state",
+        options=set(df["State"])
+    )
 
 with col2:
-    alliance = st.selectbox(
-        "Please Select an alliance to be compared to DMN",
-        df['Alliance'],
-        disabled=not st.session_state.disabled
+    alliance_list = df[df["State"]==st.session_state.state]
+    print(alliance_list)
+    alliance_list=alliance_list["Alliance"]
+    option = st.selectbox(
+        "Compare Your Alliance with DMN",
+        alliance_list,
+        disabled=not st.session_state.disabled,
     )
+
+print()
