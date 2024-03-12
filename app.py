@@ -47,10 +47,10 @@ if st.session_state.disabled:
     # compared_state
     st.area_chart(compared_state, x="Alliance", y=["Day 1", "Day 2","Day 3", "Day 4","Day 5"])
 
-
-state_df = df[df["State"]==st.session_state.state]
-state_df = state_df.drop("State", axis=1)
-print(state_df)
-st.header("Prep days")
-st.line_chart(state_df, x="Alliance", y=["Day 1", "Day 2","Day 3", "Day 4","Day 5"])
+else:
+    state_df = df[df["State"]==st.session_state.state]
+    state_df = state_df.drop("State", axis=1)
+    print(state_df)
+    st.header("Prep days")
+    st.line_chart(state_df, x="Alliance", y=["Day 1", "Day 2","Day 3", "Day 4","Day 5"])
 
