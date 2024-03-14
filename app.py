@@ -83,7 +83,7 @@ if st.session_state.disabled:
     # sum_vals
     sum_names = compared_state["Alliance"].squeeze()
     # sum_names
-    sums_df = pd.concat([sum_names, sum_vals,], axis=1)
+    sums_df = pd.concat([sum_names, sum_vals], axis=1)
     # sums_df.rename(columns={0: "Prep days total"})
     sums_df.columns.values[1] = "Prep Days Total"
     # sums_df
@@ -140,6 +140,20 @@ else:
 
     st.subheader("Day 5")
     fig = px.pie(state_df, values="Day 5", names="Alliance")
+    st.plotly_chart(fig)
+
+    state_df_temp = state_df.drop(columns="Alliance")
+    state_df_temp = state_df_temp.sum(axis=1)
+    sum_vals = pd.Series(state_df_temp)
+    # sum_vals
+    sum_names = state_df["Alliance"].squeeze()
+    # sum_names
+    sums_df = pd.concat([sum_names, sum_vals], axis=1)
+    sums_df.columns.values[1] = "Prep Days Total"
+    # sums_df
+
+    st.header("Prep Days Total Score")
+    fig = px.pie(sums_df, values='Prep Days Total', names="Alliance")
     st.plotly_chart(fig)
 
     st.header("Battle Day")
