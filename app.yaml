@@ -1,0 +1,4 @@
+runtime: python38
+
+entrypoint: streamlit run app.py  --global.logLevel=debug
+#--server.port 8080
