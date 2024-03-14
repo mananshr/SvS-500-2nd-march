@@ -8,6 +8,8 @@ st.set_page_config(
 )
 
 df = pd.read_csv("./data.csv")
+df_500_transposed = pd.read_csv("./500_transposed.csv")
+df_497_transposed = pd.read_csv("./497_transposed.csv")
 dmn_data = df[df["Alliance"] == "DMN"]
 st.title(":red[__SvS__] Data 500 :sunglasses:", anchor="head", help="State 500 vs 497")
 
@@ -87,6 +89,20 @@ else:
     state_df = state_df.drop("State", axis=1)
     st.header("Prep days")
     st.bar_chart(state_df, x="Alliance", y=["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"])
+    alliance_list = df[df["State"] == st.session_state.state]
+    alliance_list = alliance_list["Alliance"]
+    df_transposed = pd.DataFrame
+
+    if st.session_state.state == 500:
+        df_transposed = df_500_transposed
+    else:
+        df_transposed = df_497_transposed
+
+    st.subheader("Day-wise data")
+    st.bar_chart(df_transposed, x="Alliance", y=alliance_list)
+
+    fig = px.histogram(df_transposed, x="Alliance", y=alliance_list, barnorm="percent")
+    st.plotly_chart(fig)
 
     st.subheader("Day 1")
     fig = px.pie(state_df, values="Day 1", names="Alliance")
