@@ -1,9 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-import matplotlib.pyplot as plt
 import plotly.express as px
-from streamlit_plotly_events import plotly_events
 
 # import numpy as np
 # from PIL import Image
