@@ -1,9 +1,12 @@
 import pandas as pd
 import streamlit as st
+
+import matplotlib.pyplot as plt
+import plotly.express as px
+from streamlit_plotly_events import plotly_events
+
 # import numpy as np
 # from PIL import Image
-# import matplotlib.pyplot as plt
-# import plotly.express as px
 
 st.set_page_config(
     page_title="DMN Data Central"
@@ -54,3 +57,26 @@ else:
     st.header("Prep days")
     st.line_chart(state_df, x="Alliance", y=["Day 1", "Day 2","Day 3", "Day 4","Day 5"])
 
+st.subheader("Day 1")
+fig = px.pie(state_df, values="Day 1", names="Alliance")
+st.plotly_chart(fig)
+
+st.subheader("Day 2")
+fig = px.pie(state_df, values="Day 2", names="Alliance")
+st.plotly_chart(fig)
+
+st.subheader("Day 3")
+fig = px.pie(state_df, values="Day 3", names="Alliance")
+st.plotly_chart(fig)
+
+st.subheader("Day 4")
+fig = px.pie(state_df, values="Day 4", names="Alliance")
+st.plotly_chart(fig)
+
+st.subheader("Day 5")
+fig = px.pie(state_df, values="Day 5", names="Alliance")
+st.plotly_chart(fig)
+
+st.subheader("Battle Day")
+fig = px.pie(state_df, values="Day 6", names="Alliance")
+st.plotly_chart(fig)
