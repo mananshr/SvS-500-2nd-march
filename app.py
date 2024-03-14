@@ -101,6 +101,7 @@ else:
     st.subheader("Day-wise data")
     st.bar_chart(df_transposed, x="Alliance", y=alliance_list)
 
+    st.subheader("Day-wise contribution percentage")
     fig = px.histogram(df_transposed, x="Alliance", y=alliance_list, barnorm="percent")
     st.plotly_chart(fig)
 
