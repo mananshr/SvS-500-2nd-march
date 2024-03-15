@@ -45,16 +45,45 @@ if st.session_state.disabled:
 
     compared_state = dmn_data._append(df[df["Alliance"] == st.session_state.alliance])
     st.bar_chart(compared_state, x="Alliance", y=["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"])
-    compared_state_temp = compared_state.rename(columns={'Day 6': 'Battle Day'})
-    compared_state_temp = compared_state_temp.drop("State", axis=1)
+    compared_state_sum = compared_state.rename(columns={'Day 6': 'Battle Day'})
+    compared_state_sum = compared_state_sum.drop("State", axis=1)
 
-    compared_state_temp = compared_state_temp.drop("Battle Day", axis=1)
-    compared_state_temp = compared_state_temp.drop("Alliance", axis=1)
-    compared_state_temp = compared_state_temp.sum(axis=1)
-    sum_vals = pd.Series(compared_state_temp)
+    compared_state_sum = compared_state_sum.drop("Battle Day", axis=1)
+    compared_state_sum = compared_state_sum.drop("Alliance", axis=1)
+    compared_state_sum = compared_state_sum.sum(axis=1)
+    sum_vals = pd.Series(compared_state_sum)
     sum_names = compared_state["Alliance"].squeeze()
     sums_df = pd.concat([sum_names, sum_vals], axis=1)
-    sums_df.columns.values[1] = "Prep Days Total"
+    sums_df.columns.values[1] = str("Prep Days Total")
+
+    compared_state_temp = compared_state.drop(columns="State")
+    compared_state_temp = compared_state_temp.drop(columns="Alliance")
+    alliance_list_temp = compared_state.get("Alliance")
+    # compared_state_transposed = pd.DataFrame(columns=alliance_list_temp)
+    # compared_state_transposed.name = str("Days")
+    # alliance_list_temp
+    compared_state_transposed = pd.DataFrame()
+    compared_state_transposed = compared_state_transposed._append(compared_state_temp.transpose(), ignore_index=True)
+    compared_state_transposed.columns = alliance_list_temp
+    # compared_state_transposed.index = pd.Index(name="Day-wise Comparison")
+    # compared_state_transposed.index = pd.Index.set_names(compared_state_transposed, names='Day-wise Comparison')
+    # compared_state_transposed.index = pd.Index(compared_state_temp.get("Alliance"), name="Day-wise Comparison")
+    # compared_state_transposed.columns.values[0] = compared_state_temp.iat[0, 0]
+    # compared_state_transposed.columns.values[0] = str("DMN")
+    # compared_state_transposed
+    # st.bar_chart(compared_state_transposed, x="Alliance", y=[0,1])
+
+    compared_state_transposed = compared_state_transposed.assign(Days=["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Battle Day"])
+    compared_state_transposed
+
+    st.subheader("Day-wise contribution")
+    # fig = px.histogram(compared_state_transposed, x="Days", y=alliance_list_temp)
+    # st.plotly_chart(fig)
+    st.bar_chart(compared_state_transposed, x="Days", y=alliance_list_temp)
+
+    st.subheader("Day-wise contribution percentage")
+    fig = px.histogram(compared_state_transposed, x="Days", y=alliance_list_temp, barnorm="percent")
+    st.plotly_chart(fig)
 
     st.subheader("Day 1")
     fig = px.pie(compared_state, values="Day 1", names="Alliance", color_discrete_sequence=px.colors.sequential.RdBu)
