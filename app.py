@@ -74,7 +74,7 @@ if st.session_state.disabled:
     # st.bar_chart(compared_state_transposed, x="Alliance", y=[0,1])
 
     compared_state_transposed = compared_state_transposed.assign(Days=["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Battle Day"])
-    compared_state_transposed
+    # compared_state_transposed
 
     st.subheader("Day-wise contribution")
     # fig = px.histogram(compared_state_transposed, x="Days", y=alliance_list_temp)
