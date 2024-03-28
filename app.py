@@ -59,26 +59,14 @@ if st.session_state.disabled:
     compared_state_temp = compared_state.drop(columns="State")
     compared_state_temp = compared_state_temp.drop(columns="Alliance")
     alliance_list_temp = compared_state.get("Alliance")
-    # compared_state_transposed = pd.DataFrame(columns=alliance_list_temp)
-    # compared_state_transposed.name = str("Days")
-    # alliance_list_temp
+
     compared_state_transposed = pd.DataFrame()
     compared_state_transposed = compared_state_transposed._append(compared_state_temp.transpose(), ignore_index=True)
     compared_state_transposed.columns = alliance_list_temp
-    # compared_state_transposed.index = pd.Index(name="Day-wise Comparison")
-    # compared_state_transposed.index = pd.Index.set_names(compared_state_transposed, names='Day-wise Comparison')
-    # compared_state_transposed.index = pd.Index(compared_state_temp.get("Alliance"), name="Day-wise Comparison")
-    # compared_state_transposed.columns.values[0] = compared_state_temp.iat[0, 0]
-    # compared_state_transposed.columns.values[0] = str("DMN")
-    # compared_state_transposed
-    # st.bar_chart(compared_state_transposed, x="Alliance", y=[0,1])
 
     compared_state_transposed = compared_state_transposed.assign(Days=["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Battle Day"])
-    # compared_state_transposed
 
     st.subheader("Day-wise contribution")
-    # fig = px.histogram(compared_state_transposed, x="Days", y=alliance_list_temp)
-    # st.plotly_chart(fig)
     st.bar_chart(compared_state_transposed, x="Days", y=alliance_list_temp)
 
     st.subheader("Day-wise contribution percentage")
